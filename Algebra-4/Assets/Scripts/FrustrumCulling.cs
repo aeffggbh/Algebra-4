@@ -11,7 +11,7 @@ public class FrustrumCulling : MonoBehaviour
 
     private void Start()
     {
-        Frustrum = new Frustrum(transform, aspectRatio.x / aspectRatio.y, fovY, zNear, zFar);
+        Frustrum = new Frustrum(Camera.main.transform, aspectRatio.x / aspectRatio.y, fovY, zNear, zFar);
     }
 
     private void Update()
@@ -59,6 +59,6 @@ public class FrustrumCulling : MonoBehaviour
 
     private void UpdateFrustrum()
     {
-        Frustrum.SetData(transform, aspectRatio.x / aspectRatio.y, fovY, zNear, zFar);
+        Frustrum.SetData(Camera.main.transform, aspectRatio.x / aspectRatio.y, fovY, zNear, zFar);
     }
 }
