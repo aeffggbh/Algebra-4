@@ -6,7 +6,7 @@ using UnityEngine;
 public class AABB : MonoBehaviour
 {
     [SerializeField] private Vector3 origin;
-    [SerializeField] private MeshFilter meshFilter;
+    [SerializeField] private Mesh mesh;
 
     [SerializeField] private Vector3[] vertices;
     [SerializeField] private Vector3[] boxVertices;
@@ -25,10 +25,13 @@ public class AABB : MonoBehaviour
         minV = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
         maxV = new Vector3(float.MinValue, float.MinValue, float.MinValue);
 
-        //meshFilter = GetComponentInChildren<MeshFilter>();
+        if (Application.isPlaying)
+            mesh = GetComponentInChildren<MeshFilter>().mesh;
+        else
+            mesh = GetComponentInChildren<MeshFilter>().sharedMesh;
 
         boxVertices = new Vector3[8];
-        vertices = meshFilter.mesh.vertices;
+        vertices = mesh.vertices;
         SearchVertex();
     }
 
