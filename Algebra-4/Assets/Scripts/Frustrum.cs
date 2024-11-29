@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -13,32 +14,32 @@ public class Frustrum
     public MyPlane farFace;
     public MyPlane nearFace;
 
-
     public Frustrum(Transform transform, float aspect, float fovY, float zNear, float zFar)
     {
         SetData(transform, aspect, fovY, zNear, zFar);
     }
 
-    public void SetData(Transform testTransform, float aspect, float fovY, float zNear, float zFar)
+    public void SetData(Transform testTransform, float aspect, float fovY, float nearDistInput, float farDistInput)
     {
         Transform cam = testTransform;
 
         fovY *= Mathf.Deg2Rad;
 
-        float halfVSide = zFar * Mathf.Tan(fovY * 0.5f);
+        float halfVSide = farDistInput * Mathf.Tan(fovY * 0.5f);
         float halfHSide = halfVSide * aspect;
 
-        Vector3 frontMultFar = zFar * testTransform.forward;
+        Vector3 farForwardDistance = farDistInput * cam.forward;
+        Vector3 nearForwardDistance = nearDistInput * cam.forward;
 
-        nearFace.SetNormalAndPosition(cam.position + zNear * cam.forward, -cam.forward);
-        farFace.SetNormalAndPosition(cam.position + frontMultFar, cam.forward);
-        rightFace.SetNormalAndPosition(cam.position, MyTools.CrossProduct(cam.up, frontMultFar + cam.right * halfHSide));
+        nearFace.SetNormalAndPosition(cam.position + nearForwardDistance, cam.forward);
+        farFace.SetNormalAndPosition(cam.position + farForwardDistance, -cam.forward);
 
-        leftFace.SetNormalAndPosition(cam.position, MyTools.CrossProduct(frontMultFar - cam.right * halfHSide, cam.up));
+        rightFace.SetNormalAndPosition(cam.position, MyTools.CrossProduct(farForwardDistance + cam.right * halfHSide, cam.up));
+        leftFace.SetNormalAndPosition(cam.position, MyTools.CrossProduct(cam.up, farForwardDistance - cam.right * halfHSide));
 
-        topFace.SetNormalAndPosition(cam.position, MyTools.CrossProduct(cam.right, frontMultFar - cam.up * halfVSide));
+        topFace.SetNormalAndPosition(cam.position, -MyTools.CrossProduct(cam.right, farForwardDistance - cam.up * halfVSide));
+        bottomFace.SetNormalAndPosition(cam.position, -MyTools.CrossProduct(farForwardDistance + cam.up * halfVSide, cam.right));
 
-        bottomFace.SetNormalAndPosition(cam.position, MyTools.CrossProduct(frontMultFar + cam.up * halfVSide, cam.right));
     }
 
     public MyPlane[] GetPlanes()
