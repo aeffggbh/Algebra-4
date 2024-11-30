@@ -17,11 +17,12 @@ public class FrustumDrawer : MonoBehaviour
     {
         if (frustrum.GetPlanes().Length <= 0) return;
         
-        Gizmos.color = Color.green;
-
         //near-far connections
+
+        Gizmos.color = Color.green;
         Gizmos.DrawLine(frustrumCulling.corners[(int)FrustrumCulling.CornersEn.nearTopLeft], frustrumCulling.corners[(int)FrustrumCulling.CornersEn.farTopLeft]);
         Gizmos.DrawLine(frustrumCulling.corners[(int)FrustrumCulling.CornersEn.nearTopRight], frustrumCulling.corners[(int)FrustrumCulling.CornersEn.farTopRight]);
+
         Gizmos.DrawLine(frustrumCulling.corners[(int)FrustrumCulling.CornersEn.nearBottomRight], frustrumCulling.corners[(int)FrustrumCulling.CornersEn.farBottomRight]);
         Gizmos.DrawLine(frustrumCulling.corners[(int)FrustrumCulling.CornersEn.nearBottomLeft], frustrumCulling.corners[(int)FrustrumCulling.CornersEn.farBottomLeft]);
    

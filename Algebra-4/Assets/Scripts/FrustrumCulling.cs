@@ -5,11 +5,13 @@ using static FrustumDrawer;
 [ExecuteAlways]
 public class FrustrumCulling : MonoBehaviour
 {
+    [SerializeField] private Camera mainCam;
     [SerializeField] private Vector2 aspectRatio;
     [SerializeField] private List<AABB> gos;
     [SerializeField] private float fovY, zNear, zFar;
     [SerializeField] public Vector3[] corners;
-    public Frustrum frustrum;
+
+    public Frustrum frustrum = new();
 
     public enum CornersEn
     {
@@ -24,20 +26,27 @@ public class FrustrumCulling : MonoBehaviour
         farBottomLeft,
     }
 
-    private void Awake()
+    private void Update()
     {
-        frustrum = new Frustrum(Camera.main.transform, aspectRatio.x / aspectRatio.y, fovY, zNear, zFar);
+        UpdateFrustrum();
 
         UpdateCorners();
+
+        foreach (AABB go in gos)
+        {
+            go.GetComponent<MeshRenderer>().enabled = IsPointOnPlane(go);
+        }
     }
 
-    private Vector3 IntersectThreePlanes(MyPlane plane1, MyPlane plane2, MyPlane plane)
+    private Vector3 IntersectThreePlanes(MyPlane plane1, MyPlane plane2, MyPlane plane3)
     {
-        Vector3 normal1 = plane1.Normal, normal2 = plane2.Normal, normal3 = plane.Normal;
+        Vector3 normal1 = plane1.Normal, normal2 = plane2.Normal, normal3 = plane3.Normal;
 
+        //El cross es la formula para obtener la intersección entre dos planos (interseccion plano-plano) que te devuelve la recta en la que intersectan
+        //El dot es la formula para obtener la intersección recta-plano
         float determinant = MyTools.DotProduct(normal1, MyTools.CrossProduct(normal2, normal3));
 
-        if (Mathf.Abs(determinant) < 1e-6f)
+        if (Mathf.Abs(determinant) < Vector3.kEpsilon)
         {
             Debug.LogWarning("Planes do not intersect at a single point.");
             return Vector3.zero;
@@ -46,8 +55,8 @@ public class FrustrumCulling : MonoBehaviour
         Vector3 intersectPoint = (
             (-plane1.Distance * MyTools.CrossProduct(normal2, normal3)) +
             (-plane2.Distance * MyTools.CrossProduct(normal3, normal1)) +
-            (-plane.Distance * MyTools.CrossProduct(normal1, normal2))
-        ) / determinant;
+            (-plane3.Distance * MyTools.CrossProduct(normal1, normal2))
+            ) / determinant;
 
         return intersectPoint;
     }
@@ -66,18 +75,6 @@ public class FrustrumCulling : MonoBehaviour
         corners[(int)CornersEn.farBottomRight] = IntersectThreePlanes(frustrum.rightFace, frustrum.bottomFace, frustrum.farFace); // Far Bottom Right
         corners[(int)CornersEn.farBottomLeft] = IntersectThreePlanes(frustrum.leftFace, frustrum.bottomFace, frustrum.farFace); // Far Bottom Left
 
-    }
-
-    private void Update()
-    {
-        UpdateCorners();
-
-        UpdateFrustrum();
-
-        foreach (AABB go in gos)
-        {
-            go.GetComponent<MeshRenderer>().enabled = IsPointOnPlane(go);
-        }
     }
 
     private bool IsPointOnPlane(AABB go)
@@ -113,6 +110,6 @@ public class FrustrumCulling : MonoBehaviour
 
     private void UpdateFrustrum()
     {
-        frustrum.SetData(Camera.main.transform, aspectRatio.x / aspectRatio.y, fovY, zNear, zFar);
+        frustrum.SetData(mainCam.transform, aspectRatio.x / aspectRatio.y, fovY, zNear, zFar);
     }
 }

@@ -17,6 +17,9 @@ public class MyPlane
     //distance from 0,0,0
     [SerializeField] public float distance;
 
+    public MyPlane()
+    {}
+
     ///// <summary>
     ///// Plane Constructor
     ///// Create the normal/distance of the Plane from 3 vertices
@@ -29,21 +32,6 @@ public class MyPlane
         SetNormalAndPosition(vertex1, vertex2, vertex3);
     }
 
-    ///// <summary>
-    ///// Plane constructor
-    ///// </summary>
-    ///// <param name="normal"> la normal donde apunta el plano (dentro o afuera) </param>
-    ///// <param name="point"> el centro de la cara donde empieza la normal </param>
-    //public MyPlane(Vector3 normal, Vector3 point)
-    //{
-    //    SetNormalAndPosition(normal, point);
-    //}
-    //public void SetNormalAndPosition(Vector3 normal, Vector3 point)
-    //{
-    //    this.normal = normal.normalized;
-    //    this.distance = -Vector3.Dot(this.normal, point);
-    //}
-
     public void SetNormalAndPosition(Vector3 vertex1, Vector3 vertex2, Vector3 vertex3)
     {
         this.normal = Vector3.Cross(vertex2 - vertex1, vertex3 - vertex1).normalized;
@@ -54,21 +42,6 @@ public class MyPlane
         verB = vertex2;
         verC = vertex3;
     }
-
-    ///// <summary>
-    ///// Esta del lado positivo o negativo del plano? (segun la normal)
-    ///// </summary>
-    ///// <param name="point"></param>
-    ///// <returns></returns>
-    //public bool GetSide(Vector3 point)
-    //{
-    //    //en cierta forma se transforma a la normal en coordenadas globales donde se hace el vector.
-    //    //Al ser una direccion le tengo que sumar la distancia que tiene desde el punto 0,0,0 al plano para obtener la coordenada real.
-
-    //    // El Dot es el producto escalar, es el coseno de un angulo.
-    //    // Si esta inclinado para un lado (el coseno da distinto de 0, por lo que es menor o mayor a 90 grados) y da positivo, esta del lado positivo del plano.
-    //    return (Vector3.Dot(this.normal, point) + distance > 0);
-    //}
 
     public Vector3 Normal { get { return normal; } }
     public float Distance { get { return distance; } }
