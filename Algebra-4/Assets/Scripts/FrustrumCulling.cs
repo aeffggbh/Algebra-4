@@ -9,11 +9,11 @@ public class FrustrumCulling : MonoBehaviour
     [SerializeField] private Vector2 aspectRatio;
     [SerializeField] private List<AABB> gos;
     [SerializeField] private float fovY, zNear, zFar;
-    [SerializeField] public Vector3[] corners;
+    [SerializeField] public Vector3[] vertices;
 
     public Frustrum frustrum = new();
 
-    public enum CornersEn
+    public enum Vertex
     {
         nearTopLeft,
         nearTopRight,
@@ -30,7 +30,7 @@ public class FrustrumCulling : MonoBehaviour
     {
         UpdateFrustrum();
 
-        UpdateCorners();
+        UpdateVertices();
 
         foreach (AABB go in gos)
         {
@@ -61,19 +61,19 @@ public class FrustrumCulling : MonoBehaviour
         return intersectPoint;
     }
 
-    public void UpdateCorners()
+    public void UpdateVertices()
     {
-        corners = new Vector3[8];
+        vertices = new Vector3[8];
 
-        corners[(int)CornersEn.nearTopLeft] = IntersectThreePlanes(frustrum.leftFace, frustrum.topFace, frustrum.nearFace); // Near Top Left
-        corners[(int)CornersEn.nearTopRight] = IntersectThreePlanes(frustrum.rightFace, frustrum.topFace, frustrum.nearFace); // Near Top Right
-        corners[(int)CornersEn.nearBottomRight] = IntersectThreePlanes(frustrum.rightFace, frustrum.bottomFace, frustrum.nearFace); // Near Bottom Right
-        corners[(int)CornersEn.nearBottomLeft] = IntersectThreePlanes(frustrum.leftFace, frustrum.bottomFace, frustrum.nearFace); // Near Bottom Left
+        vertices[(int)Vertex.nearTopLeft] = IntersectThreePlanes(frustrum.leftFace, frustrum.topFace, frustrum.nearFace); // Near Top Left
+        vertices[(int)Vertex.nearTopRight] = IntersectThreePlanes(frustrum.rightFace, frustrum.topFace, frustrum.nearFace); // Near Top Right
+        vertices[(int)Vertex.nearBottomRight] = IntersectThreePlanes(frustrum.rightFace, frustrum.bottomFace, frustrum.nearFace); // Near Bottom Right
+        vertices[(int)Vertex.nearBottomLeft] = IntersectThreePlanes(frustrum.leftFace, frustrum.bottomFace, frustrum.nearFace); // Near Bottom Left
 
-        corners[(int)CornersEn.farTopLeft] = IntersectThreePlanes(frustrum.leftFace, frustrum.topFace, frustrum.farFace); // Far Top Left
-        corners[(int)CornersEn.farTopRight] = IntersectThreePlanes(frustrum.rightFace, frustrum.topFace, frustrum.farFace); // Far Top Right
-        corners[(int)CornersEn.farBottomRight] = IntersectThreePlanes(frustrum.rightFace, frustrum.bottomFace, frustrum.farFace); // Far Bottom Right
-        corners[(int)CornersEn.farBottomLeft] = IntersectThreePlanes(frustrum.leftFace, frustrum.bottomFace, frustrum.farFace); // Far Bottom Left
+        vertices[(int)Vertex.farTopLeft] = IntersectThreePlanes(frustrum.leftFace, frustrum.topFace, frustrum.farFace); // Far Top Left
+        vertices[(int)Vertex.farTopRight] = IntersectThreePlanes(frustrum.rightFace, frustrum.topFace, frustrum.farFace); // Far Top Right
+        vertices[(int)Vertex.farBottomRight] = IntersectThreePlanes(frustrum.rightFace, frustrum.bottomFace, frustrum.farFace); // Far Bottom Right
+        vertices[(int)Vertex.farBottomLeft] = IntersectThreePlanes(frustrum.leftFace, frustrum.bottomFace, frustrum.farFace); // Far Bottom Left
 
     }
 
@@ -104,7 +104,7 @@ public class FrustrumCulling : MonoBehaviour
 
     public bool GetSide(MyPlane plane, Vector3 position)
     {
-        return plane.GetSide(position);
+        return plane.IsInPlane(position);
     }
 
 

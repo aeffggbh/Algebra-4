@@ -23,10 +23,9 @@ public class Frustrum
     }
 
     //https://learnopengl.com/Guest-Articles/2021/Scene/Frustum-Culling
-    public void SetData(Transform testTransform, float aspect, float fovY, float nearDistInput, float farDistInput)
+    public void SetData(Transform origin, float aspect, float fovY, float nearDistInput, float farDistInput)
     {
-        Transform cam = testTransform;
-
+        //paso el fovY a radianes para calcular la tangente
         fovY *= Mathf.Deg2Rad;
 
         //tan = opuesto/ady
@@ -35,24 +34,23 @@ public class Frustrum
         float halfVSide = farDistInput * Mathf.Tan(fovY * 0.5f);
         // aspect = 16/9
         // 16 (width) = 9 (height) * aspect
+        // El fov se va a modificar proporcionalmente al aspect
         float halfHSide = halfVSide * aspect;
 
-        Vector3 farForwardDistance = farDistInput * cam.forward;
-        Vector3 nearForwardDistance = nearDistInput * cam.forward;
+        Vector3 farForwardDistance = farDistInput * origin.forward;
+        Vector3 nearForwardDistance = nearDistInput * origin.forward;
 
-        nearFace.SetNormalAndPosition(cam.position + nearForwardDistance, cam.forward);
-        farFace.SetNormalAndPosition(cam.position + farForwardDistance, -cam.forward);
+        nearFace.SetNormalAndPosition(origin.position + nearForwardDistance, origin.forward);
+        farFace.SetNormalAndPosition(origin.position + farForwardDistance, -origin.forward);
 
-        rightFace.SetNormalAndPosition(cam.position, MyTools.CrossProduct(farForwardDistance + cam.right * halfHSide, cam.up));
-        leftFace.SetNormalAndPosition(cam.position, MyTools.CrossProduct(cam.up, farForwardDistance - cam.right * halfHSide));
+        rightFace.SetNormalAndPosition(origin.position, MyTools.CrossProduct(farForwardDistance + origin.right * halfHSide, origin.up));
+        leftFace.SetNormalAndPosition(origin.position, MyTools.CrossProduct(origin.up, farForwardDistance - origin.right * halfHSide));
 
-        //hacerlo perpendicular al right de la camara ayuda a que quede mirando para arriba/abajo
-        topFace.SetNormalAndPosition(cam.position, MyTools.CrossProduct(cam.right, farForwardDistance + cam.up * halfVSide));
-        bottomFace.SetNormalAndPosition(cam.position, MyTools.CrossProduct(farForwardDistance - cam.up * halfVSide, cam.right));
-
+        topFace.SetNormalAndPosition(origin.position, MyTools.CrossProduct(origin.right, farForwardDistance + origin.up * halfVSide));
+        bottomFace.SetNormalAndPosition(origin.position, MyTools.CrossProduct(farForwardDistance - origin.up * halfVSide, origin.right));
     }
 
-    public MyPlane[] GetPlanes()
+    public MyPlane[] GetPlanes()    
     {
         return new MyPlane[6] { nearFace, farFace, rightFace, leftFace, topFace, bottomFace };
     }

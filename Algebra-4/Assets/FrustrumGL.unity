@@ -155,7 +155,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77a2545eee3aafd48b32d50ea12ad2e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  origin: {x: 0, y: 0, z: 0}
   mesh: {fileID: 0}
   vertices:
   - {x: 0.5, y: -0.5, z: 0.5}
@@ -346,39 +345,21 @@ MonoBehaviour:
   frustrum:
     topFace:
       normal: {x: 0, y: -0.70710677, z: 0.70710677}
-      verA: {x: 0, y: 0, z: 0}
-      verB: {x: 0, y: 0, z: 0}
-      verC: {x: 0, y: 0, z: 0}
       distance: -0
     bottomFace:
       normal: {x: -0, y: 0.70710677, z: 0.70710677}
-      verA: {x: 0, y: 0, z: 0}
-      verB: {x: 0, y: 0, z: 0}
-      verC: {x: 0, y: 0, z: 0}
       distance: -0
     rightFace:
       normal: {x: -0.49026123, y: 0, z: 0.87157553}
-      verA: {x: 0, y: 0, z: 0}
-      verB: {x: 0, y: 0, z: 0}
-      verC: {x: 0, y: 0, z: 0}
       distance: -0
     leftFace:
       normal: {x: 0.49026123, y: -0, z: 0.87157553}
-      verA: {x: 0, y: 0, z: 0}
-      verB: {x: 0, y: 0, z: 0}
-      verC: {x: 0, y: 0, z: 0}
       distance: -0
     farFace:
       normal: {x: -0, y: -0, z: -1}
-      verA: {x: 0, y: 0, z: 0}
-      verB: {x: 0, y: 0, z: 0}
-      verC: {x: 0, y: 0, z: 0}
       distance: 22
     nearFace:
       normal: {x: 0, y: 0, z: 1}
-      verA: {x: 0, y: 0, z: 0}
-      verB: {x: 0, y: 0, z: 0}
-      verC: {x: 0, y: 0, z: 0}
       distance: -1
 --- !u!114 &189739687
 MonoBehaviour:
@@ -1155,7 +1136,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77a2545eee3aafd48b32d50ea12ad2e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  origin: {x: 0, y: 0, z: 0}
   mesh: {fileID: 801806747}
   vertices:
   - {x: 0.5, y: -0.5, z: 0.5}
@@ -1670,7 +1650,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77a2545eee3aafd48b32d50ea12ad2e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  origin: {x: 0, y: 0, z: 0}
   mesh: {fileID: 1700414624}
   vertices:
   - {x: 0.28782713, y: -0.28782713, z: -0.28782713}

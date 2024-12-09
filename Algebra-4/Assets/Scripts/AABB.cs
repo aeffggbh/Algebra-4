@@ -5,7 +5,6 @@ using UnityEngine;
 [ExecuteAlways]
 public class AABB : MonoBehaviour
 {
-    [SerializeField] private Vector3 origin;
     [SerializeField] private Mesh mesh;
 
     [SerializeField] private Vector3[] vertices;

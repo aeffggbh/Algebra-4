@@ -20,22 +20,22 @@ public class FrustumDrawer : MonoBehaviour
         //near-far connections
 
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(frustrumCulling.corners[(int)FrustrumCulling.CornersEn.nearTopLeft], frustrumCulling.corners[(int)FrustrumCulling.CornersEn.farTopLeft]);
-        Gizmos.DrawLine(frustrumCulling.corners[(int)FrustrumCulling.CornersEn.nearTopRight], frustrumCulling.corners[(int)FrustrumCulling.CornersEn.farTopRight]);
+        Gizmos.DrawLine(frustrumCulling.vertices[(int)FrustrumCulling.Vertex.nearTopLeft], frustrumCulling.vertices[(int)FrustrumCulling.Vertex.farTopLeft]);
+        Gizmos.DrawLine(frustrumCulling.vertices[(int)FrustrumCulling.Vertex.nearTopRight], frustrumCulling.vertices[(int)FrustrumCulling.Vertex.farTopRight]);
 
-        Gizmos.DrawLine(frustrumCulling.corners[(int)FrustrumCulling.CornersEn.nearBottomRight], frustrumCulling.corners[(int)FrustrumCulling.CornersEn.farBottomRight]);
-        Gizmos.DrawLine(frustrumCulling.corners[(int)FrustrumCulling.CornersEn.nearBottomLeft], frustrumCulling.corners[(int)FrustrumCulling.CornersEn.farBottomLeft]);
+        Gizmos.DrawLine(frustrumCulling.vertices[(int)FrustrumCulling.Vertex.nearBottomRight], frustrumCulling.vertices[(int)FrustrumCulling.Vertex.farBottomRight]);
+        Gizmos.DrawLine(frustrumCulling.vertices[(int)FrustrumCulling.Vertex.nearBottomLeft], frustrumCulling.vertices[(int)FrustrumCulling.Vertex.farBottomLeft]);
    
         //near
-        Gizmos.DrawLine(frustrumCulling.corners[(int)FrustrumCulling.CornersEn.nearTopLeft], frustrumCulling.corners[(int)FrustrumCulling.CornersEn.nearTopRight]);
-        Gizmos.DrawLine(frustrumCulling.corners[(int)FrustrumCulling.CornersEn.nearTopLeft], frustrumCulling.corners[(int)FrustrumCulling.CornersEn.nearBottomLeft]);
-        Gizmos.DrawLine(frustrumCulling.corners[(int)FrustrumCulling.CornersEn.nearTopRight], frustrumCulling.corners[(int)FrustrumCulling.CornersEn.nearBottomRight]);
-        Gizmos.DrawLine(frustrumCulling.corners[(int)FrustrumCulling.CornersEn.nearBottomLeft], frustrumCulling.corners[(int)FrustrumCulling.CornersEn.nearBottomRight]);
+        Gizmos.DrawLine(frustrumCulling.vertices[(int)FrustrumCulling.Vertex.nearTopLeft], frustrumCulling.vertices[(int)FrustrumCulling.Vertex.nearTopRight]);
+        Gizmos.DrawLine(frustrumCulling.vertices[(int)FrustrumCulling.Vertex.nearTopLeft], frustrumCulling.vertices[(int)FrustrumCulling.Vertex.nearBottomLeft]);
+        Gizmos.DrawLine(frustrumCulling.vertices[(int)FrustrumCulling.Vertex.nearTopRight], frustrumCulling.vertices[(int)FrustrumCulling.Vertex.nearBottomRight]);
+        Gizmos.DrawLine(frustrumCulling.vertices[(int)FrustrumCulling.Vertex.nearBottomLeft], frustrumCulling.vertices[(int)FrustrumCulling.Vertex.nearBottomRight]);
 
         //far
-        Gizmos.DrawLine(frustrumCulling.corners[(int)FrustrumCulling.CornersEn.farTopLeft], frustrumCulling.corners[(int)FrustrumCulling.CornersEn.farTopRight]);
-        Gizmos.DrawLine(frustrumCulling.corners[(int)FrustrumCulling.CornersEn.farTopLeft], frustrumCulling.corners[(int)FrustrumCulling.CornersEn.farBottomLeft]);
-        Gizmos.DrawLine(frustrumCulling.corners[(int)FrustrumCulling.CornersEn.farTopRight], frustrumCulling.corners[(int)FrustrumCulling.CornersEn.farBottomRight]);
-        Gizmos.DrawLine(frustrumCulling.corners[(int)FrustrumCulling.CornersEn.farBottomLeft], frustrumCulling.corners[(int)FrustrumCulling.CornersEn.farBottomRight]);
+        Gizmos.DrawLine(frustrumCulling.vertices[(int)FrustrumCulling.Vertex.farTopLeft], frustrumCulling.vertices[(int)FrustrumCulling.Vertex.farTopRight]);
+        Gizmos.DrawLine(frustrumCulling.vertices[(int)FrustrumCulling.Vertex.farTopLeft], frustrumCulling.vertices[(int)FrustrumCulling.Vertex.farBottomLeft]);
+        Gizmos.DrawLine(frustrumCulling.vertices[(int)FrustrumCulling.Vertex.farTopRight], frustrumCulling.vertices[(int)FrustrumCulling.Vertex.farBottomRight]);
+        Gizmos.DrawLine(frustrumCulling.vertices[(int)FrustrumCulling.Vertex.farBottomLeft], frustrumCulling.vertices[(int)FrustrumCulling.Vertex.farBottomRight]);
     }
 }
