@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,7 +23,14 @@ public static class MyTools
     {
         return (a > b) ? a : b;
     }
-
+    /// <summary>
+    /// Si los vectores apuntan en la misma dirección → cos(θ) = 1
+	/// Si son perpendiculares → cos(θ) = 0
+	///	Si apuntan en direcciones opuestas → cos(θ) = -1
+    /// </summary>
+    /// <param name="a"></param>
+    /// <param name="b"></param>
+    /// <returns></returns>
     public static float DotProduct(Vector3 a, Vector3 b)
     {
         return (a.x * b.x) + (a.y * b.y) + (a.z * b.z);
